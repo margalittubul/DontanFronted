@@ -1,0 +1,187 @@
+<div class="container" *ngIf="api.dashboard() as d">
+    <!-- ====== HEADER ====== -->
+    <header class="app-header">
+        <div style="display:flex;gap:10px;align-items:center">
+            <span class="balance-chip">⚓️ {{ d.anchors }} {{ locale.t('header.anchors') }}</span>
+            <span class="balance-chip gold" *ngIf="d.sportsStars > 0">
+                ⭐ {{ d.sportsStars }} {{ locale.t('header.sportsStars') }}
+            </span>
+        </div>
+        <button class="btn btn-gold btn-sm" *ngIf="d.sportsStars > 0">
+            {{ locale.t('header.shopSportsGear') }}
+        </button>
+    </header>
+
+    <!-- ====== DAILY BANNER ====== -->
+    <div class="daily-banner animate-in" style="margin-top:16px">
+        <h2>{{ locale.t('dashboard.dailySummary') }}</h2>
+        <div class="steps-count">{{ d.steps | number }}</div>
+        <div class="steps-label">{{ locale.t('dashboard.stepsToday') }}</div>
+    </div>
+
+    <!-- ====== TRACKING GRID ====== -->
+    <div class="grid-2 section">
+        <!-- Pedometer -->
+        <div class="card animate-in">
+            <div class="card-title">{{ locale.t('pedometer.title') }}</div>
+            <div class="progress-ring">
+                <svg width="100" height="100" viewBox="0 0 100 100">
+                    <circle class="progress-ring__background" cx="50" cy="50" r="42" />
+                    <circle class="progress-ring__fill" cx="50" cy="50" r="42"
+                        [attr.stroke-dasharray]="stepsCircumference"
+                        [attr.stroke-dashoffset]="stepsStrokeDashoffset()" />
+                </svg>
+                <div class="progress-ring__value">
+                    {{ d.steps | number }}
+                    <small>{{ locale.t('pedometer.steps') }}</small>
+                </div>
+            </div>
+            <div style="text-align:center;font-size:0.72rem;color:var(--gray-400)">
+                {{ locale.t('pedometer.goal') }}
+            </div>
+            <div style="text-align:center;margin-top:8px">
+                <span class="balance-chip" style="font-size:0.7rem">🏃 {{ locale.t('pedometer.moveReminder') }}</span>
+            </div>
+        </div>
+
+        <!-- Hydration -->
+        <div class="card animate-in">
+            <div class="card-title">{{ locale.t('hydration.title') }}</div>
+            <div style="font-size:1.6rem;font-weight:700;color:var(--blue-600)">
+                {{ d.hydrationCups }}<span style="font-size:0.8rem;font-weight:400;color:var(--gray-400)"> / {{
+                    d.hydrationGoal }}</span>
+            </div>
+            <div style="font-size:0.72rem;color:var(--gray-400)">{{ locale.t('hydration.cups') }}</div>
+            <div class="progress-bar-wrap">
+                <div class="progress-bar-fill cyan" [style.width.%]="hydrationPercent()"></div>
+            </div>
+            <button class="btn btn-secondary btn-sm" style="width:100%;margin-top:8px" (click)="addCup()">
+                💧 {{ locale.t('hydration.addCup') }}
+            </button>
+            <div class="water-tip">{{ locale.t('hydration.tip') }}</div>
+        </div>
+
+        <!-- Training -->
+        <div class="card animate-in">
+            <div class="card-title">{{ locale.t('training.title') }}</div>
+            <div style="font-size:1.6rem;font-weight:700;color:var(--green-600)">
+                {{ d.trainingMinutes }}<span style="font-size:0.8rem;font-weight:400;color:var(--gray-400)"> / {{
+                    d.trainingGoal }}</span>
+            </div>
+            <div style="font-size:0.72rem;color:var(--gray-400)">{{ locale.t('training.minutes') }} {{
+                locale.t('training.perWeek') }}</div>
+            <div class="progress-bar-wrap">
+                <div class="progress-bar-fill green" [style.width.%]="trainingPercent()"></div>
+            </div>
+            <button class="btn btn-secondary btn-sm" style="width:100%;margin-top:8px" (click)="logWorkout()">
+                💪 {{ locale.t('training.logManualWorkout') }}
+            </button>
+        </div>
+
+        <!-- Sleep -->
+        <div class="card animate-in">
+            <div class="card-title">{{ locale.t('sleep.title') }}</div>
+            <div style="text-align:center;padding:14px 0">
+                <div style="font-size:2.2rem;font-weight:700;color:var(--blue-800)">{{ d.sleepHours }}</div>
+                <div style="font-size:0.8rem;color:var(--gray-400)">{{ locale.t('sleep.hours') }}</div>
+                <div style="font-size:0.68rem;color:var(--gray-300);margin-top:4px">{{ locale.t('sleep.lastNight') }}
+                </div>
+            </div>
+            <div style="font-size:0.72rem;color:var(--gray-400);text-align:center">{{ locale.t('sleep.goal') }}</div>
+        </div>
+    </div>
+
+    <!-- ====== NUTRITION ====== -->
+    <div class="card section animate-in">
+        <div class="card-title">{{ locale.t('nutrition.title') }}</div>
+        <p style="font-size:0.85rem;color:var(--gray-600);margin-bottom:14px">{{ locale.t('nutrition.recommendation') }}
+        </p>
+        <a class="btn btn-primary" href="https://mediclick.co.il" target="_blank" rel="noopener">
+            🥗 {{ locale.t('nutrition.bookDietitian') }}
+        </a>
+    </div>
+
+    <!-- ====== BMI ====== -->
+    <div class="card section animate-in">
+        <div class="card-title">{{ locale.t('bmi.title') }}</div>
+        <div class="input-row">
+            <div class="input-group">
+                <label>{{ locale.t('bmi.height') }}</label>
+                <input type="number" [ngModel]="bmiHeight()" (ngModelChange)="bmiHeight.set($event)">
+            </div>
+            <div class="input-group">
+                <label>{{ locale.t('bmi.weight') }}</label>
+                <input type="number" [ngModel]="bmiWeight()" (ngModelChange)="bmiWeight.set($event)">
+            </div>
+            <div class="input-group">
+                <label>{{ locale.t('bmi.age') }}</label>
+                <input type="number" [ngModel]="bmiAge()" (ngModelChange)="bmiAge.set($event)">
+            </div>
+        </div>
+        <button class="btn btn-primary btn-sm" style="width:100%" (click)="calculateBmi()">{{ locale.t('bmi.calculate')
+            }}</button>
+        <div *ngIf="bmiResult() as bmi"
+            style="margin-top:16px;padding:14px;background:var(--blue-50);border-radius:var(--radius-sm);text-align:center">
+            <div style="font-size:0.85rem;color:var(--gray-600)">{{ locale.t('bmi.result') }}</div>
+            <div style="font-size:1.4rem;font-weight:700;color:var(--blue-800)">{{ bmi.bmi }}</div>
+            <div style="font-weight:600;color:var(--blue-600)">{{ getBmiCategoryLabel(bmi.category) }}</div>
+        </div>
+    </div>
+
+    <!-- ====== REWARDS ====== -->
+    <div class="section">
+        <div class="section-title">{{ locale.t('rewards.title') }} ({{ locale.t('rewards.spendAnchors') }})</div>
+        <div class="grid-2">
+            <div class="reward-card animate-in">
+                <div class="reward-card__img"
+                    style="display:flex;align-items:center;justify-content:center;font-size:2.5rem">🏆</div>
+                <div class="reward-card__body">
+                    <div class="reward-card__title">{{ locale.t('rewards.wingateTeamFunDay') }}</div>
+                    <div class="reward-card__actions">
+                        <span class="balance-chip" style="font-size:0.7rem">⚓️ 500</span>
+                        <button class="whatsapp-btn" (click)="shareToWhatsApp(locale.t('rewards.wingateTeamFunDay'))">
+                            <span style="font-size:14px">📱</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="reward-card animate-in">
+                <div class="reward-card__img"
+                    style="display:flex;align-items:center;justify-content:center;font-size:2.5rem">🏋️</div>
+                <div class="reward-card__body">
+                    <div class="reward-card__title">{{ locale.t('rewards.personalTraining') }}</div>
+                    <div class="reward-card__actions">
+                        <span class="balance-chip" style="font-size:0.7rem">⚓️ 300</span>
+                        <button class="whatsapp-btn" (click)="shareToWhatsApp(locale.t('rewards.personalTraining'))">
+                            <span style="font-size:14px">📱</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== RESOURCES ====== -->
+    <div class="section">
+        <div class="section-title">{{ locale.t('resources.title') }}</div>
+        <div class="resource-scroll">
+            <div class="resource-card">
+                <div class="resource-card__thumb blue">📋</div>
+                <div class="resource-card__label">{{ locale.t('resources.fitnessTests') }}</div>
+            </div>
+            <div class="resource-card">
+                <div class="resource-card__thumb cyan">🌤️</div>
+                <div class="resource-card__label">{{ locale.t('resources.weatherLoads') }}</div>
+            </div>
+            <div class="resource-card">
+                <div class="resource-card__thumb green">⭐</div>
+                <div class="resource-card__label">{{ locale.t('resources.officerRequirements') }}</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Loading State -->
+<div *ngIf="api.isLoading()" class="container" style="text-align:center;padding:80px 0;color:var(--gray-400)">
+    {{ locale.t('common.loading') }}
+</div>

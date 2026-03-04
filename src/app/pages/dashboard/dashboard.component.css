@@ -1,0 +1,4 @@
+/* Dashboard component styles — layout overrides */
+:host {
+    display: block;
+}

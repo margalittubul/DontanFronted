@@ -1,0 +1,37 @@
+<div class="container" style="padding-top:20px">
+    <h1 class="section-title" style="font-size:1.2rem;margin-bottom:18px">{{ locale.t('booking.title') }}</h1>
+
+    <!-- ====== BASE CAROUSEL ====== -->
+    <div class="section">
+        <div class="section-title">{{ locale.t('booking.selectBase') }}</div>
+        <div class="base-carousel" *ngIf="api.schedule() as schedule">
+            <div class="base-card" *ngFor="let base of schedule.bases" [class.active]="selectedBase() === base.name"
+                (click)="selectBase(base.name)">
+                <div class="base-card__img"
+                    style="display:flex;align-items:center;justify-content:center;font-size:2rem">🏗️</div>
+                <div class="base-card__label">{{ getBaseDisplayName(base.name) }}</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== CLASS SCHEDULE ====== -->
+    <div class="section">
+        <div class="section-title">{{ locale.t('booking.classSchedule') }}</div>
+
+        <div *ngIf="filteredClasses().length === 0"
+            style="text-align:center;padding:40px 0;color:var(--gray-400);font-size:0.85rem">
+            {{ locale.t('common.loading') }}
+        </div>
+
+        <div *ngFor="let cls of filteredClasses()" class="class-item animate-in">
+            <div class="class-info">
+                <span class="class-name">{{ cls.className }}</span>
+                <span class="class-time">{{ cls.startTime }} · {{ cls.instructor }} · {{ cls.registeredCount }}/{{
+                    cls.capacity }}</span>
+            </div>
+            <button class="btn btn-primary btn-sm" (click)="register(cls)">
+                {{ locale.t('booking.register') }}
+            </button>
+        </div>
+    </div>
+</div>

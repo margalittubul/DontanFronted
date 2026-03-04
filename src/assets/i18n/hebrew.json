@@ -1,0 +1,100 @@
+{
+  "app": {
+    "title": "מעקב כושר וחיילות"
+  },
+  "nav": {
+    "home": "בית",
+    "bookWorkout": "הזמן אימון"
+  },
+  "header": {
+    "anchors": "עוגנים",
+    "sportsStars": "כוכבי ספורט",
+    "shopSportsGear": "חנות ציוד ספורט"
+  },
+  "dashboard": {
+    "dailySummary": "סיכום יומי",
+    "stepsToday": "צעדים היום",
+    "activityToday": "פעילות היום",
+    "goodMorning": "בוקר טוב",
+    "keepMoving": "המשך לזוז!"
+  },
+  "pedometer": {
+    "title": "מד צעדים",
+    "goal": "יעד: 10,000 צעדים",
+    "steps": "צעדים",
+    "moveReminder": "זוז!"
+  },
+  "hydration": {
+    "title": "שתייה",
+    "goal": "יעד: 10 כוסות",
+    "cups": "כוסות",
+    "addCup": "הוסף כוס",
+    "tip": "שתה לפחות כוס מים כל שעה לשמירה על ריכוז."
+  },
+  "training": {
+    "title": "אימונים",
+    "goal": "יעד: 120 דקות בשבוע",
+    "minutes": "דקות",
+    "perWeek": "בשבוע",
+    "logManualWorkout": "רשום אימון ידני"
+  },
+  "sleep": {
+    "title": "שינה",
+    "goal": "יעד: 7 שעות",
+    "hours": "שעות",
+    "lastNight": "אמש"
+  },
+  "nutrition": {
+    "title": "תזונה",
+    "recommendation": "שמור על תזונה מאוזנת עשירה בחלבון ופחמימות מורכבות.",
+    "bookDietitian": "קבע תור לדיאטנית (מדיקליק)"
+  },
+  "bmi": {
+    "title": "מחשבון BMI",
+    "height": "גובה (ס\"מ)",
+    "weight": "משקל (ק\"ג)",
+    "age": "גיל",
+    "calculate": "חשב",
+    "result": "תוצאה",
+    "underweight": "תת משקל",
+    "normal": "משקל תקין",
+    "overweight": "עודף משקל",
+    "obese": "השמנה"
+  },
+  "rewards": {
+    "title": "חנות פרסים",
+    "spendAnchors": "הוצא עוגנים",
+    "wingateTeamFunDay": "יום כיף צוותי בווינגייט",
+    "personalTraining": "אימון אישי",
+    "shareToWhatsApp": "שתף בוואטסאפ",
+    "iWonPrize": "זכיתי ב"
+  },
+  "resources": {
+    "title": "מדריכים",
+    "fitnessTests": "מבדקי כושר",
+    "weatherLoads": "עומסי מזג אוויר",
+    "officerRequirements": "דרישות קצינים"
+  },
+  "booking": {
+    "title": "הזמן אימון",
+    "selectBase": "בחר בסיס",
+    "classSchedule": "לוח שיעורים",
+    "register": "הירשם",
+    "registered": "רשום",
+    "bases": {
+      "batzet": "בצת",
+      "machi": "מכ\"י",
+      "zis": "זי\"ס",
+      "ashdod": "אשדוד"
+    }
+  },
+  "common": {
+    "loading": "טוען...",
+    "error": "שגיאה",
+    "save": "שמור",
+    "cancel": "ביטול",
+    "confirm": "אישור",
+    "today": "היום",
+    "weekly": "שבועי"
+  }
+}
