@@ -1,15 +1,20 @@
-<div class="container" *ngIf="api.dashboard() as d">
+@if (api.dashboard(); as d) {
+<div class="container">
     <!-- ====== HEADER ====== -->
     <header class="app-header">
         <div style="display:flex;gap:10px;align-items:center">
             <span class="balance-chip">⚓️ {{ d.anchors }} {{ locale.t('header.anchors') }}</span>
-            <span class="balance-chip gold" *ngIf="d.sportsStars > 0">
+            @if (d.sportsStars > 0) {
+            <span class="balance-chip gold">
                 ⭐ {{ d.sportsStars }} {{ locale.t('header.sportsStars') }}
             </span>
+            }
         </div>
-        <button class="btn btn-gold btn-sm" *ngIf="d.sportsStars > 0">
+        @if (d.sportsStars > 0) {
+        <button class="btn btn-gold btn-sm">
             {{ locale.t('header.shopSportsGear') }}
         </button>
+        }
     </header>
 
     <!-- ====== DAILY BANNER ====== -->
@@ -120,12 +125,14 @@
         </div>
         <button class="btn btn-primary btn-sm" style="width:100%" (click)="calculateBmi()">{{ locale.t('bmi.calculate')
             }}</button>
-        <div *ngIf="bmiResult() as bmi"
+        @if (bmiResult(); as bmi) {
+        <div
             style="margin-top:16px;padding:14px;background:var(--blue-50);border-radius:var(--radius-sm);text-align:center">
             <div style="font-size:0.85rem;color:var(--gray-600)">{{ locale.t('bmi.result') }}</div>
             <div style="font-size:1.4rem;font-weight:700;color:var(--blue-800)">{{ bmi.bmi }}</div>
             <div style="font-weight:600;color:var(--blue-600)">{{ getBmiCategoryLabel(bmi.category) }}</div>
         </div>
+        }
     </div>
 
     <!-- ====== REWARDS ====== -->
@@ -180,8 +187,11 @@
         </div>
     </div>
 </div>
+}
 
 <!-- Loading State -->
-<div *ngIf="api.isLoading()" class="container" style="text-align:center;padding:80px 0;color:var(--gray-400)">
+@if (api.isLoading()) {
+<div class="container" style="text-align:center;padding:80px 0;color:var(--gray-400)">
     {{ locale.t('common.loading') }}
 </div>
+}
