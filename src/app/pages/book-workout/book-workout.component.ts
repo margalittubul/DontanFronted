@@ -1,4 +1,4 @@
-import { Component, OnInit, signal, computed } from '@angular/core'
+import { Component, OnInit, signal, computed, inject } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { ApiService, WorkoutClass } from '../../services/api.service'
 import { LocaleService } from '../../services/locale.service'
@@ -13,10 +13,8 @@ import { LocaleService } from '../../services/locale.service'
 export class BookWorkoutComponent implements OnInit {
     selectedBase = signal<string>('')
 
-    constructor(
-        public api: ApiService,
-        public locale: LocaleService,
-    ) { }
+    public api = inject(ApiService)
+    public locale = inject(LocaleService)
 
     filteredClasses = computed(() => {
         const schedule = this.api.schedule()

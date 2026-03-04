@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, inject } from '@angular/core'
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router'
 import { LocaleService } from './services/locale.service'
 
@@ -23,5 +23,5 @@ import { LocaleService } from './services/locale.service'
   styles: [],
 })
 export class AppComponent {
-  constructor(public locale: LocaleService) { }
+  public locale = inject(LocaleService)
 }

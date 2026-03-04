@@ -71,8 +71,6 @@ export class ApiService {
         { id: '5', baseName: 'ashdod', className: 'Swimming', dayOfWeek: 3, startTime: '07:00', instructor: 'רב"ט שירה', capacity: 15, registeredCount: 5 },
     ]
 
-    constructor() { }
-
     loadDashboard() {
         this.isLoading.set(true)
         // Simulate network delay

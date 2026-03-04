@@ -1,4 +1,4 @@
-import { Component, OnInit, signal, computed } from '@angular/core'
+import { Component, OnInit, signal, computed, inject } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms'
 import { ApiService, BmiResult } from '../../services/api.service'
@@ -17,10 +17,8 @@ export class DashboardComponent implements OnInit {
     bmiAge = signal(25)
     bmiResult = signal<BmiResult | null>(null)
 
-    constructor(
-        public api: ApiService,
-        public locale: LocaleService,
-    ) { }
+    public api = inject(ApiService)
+    public locale = inject(LocaleService)
 
     stepsPercent = computed(() => {
         const d = this.api.dashboard()
