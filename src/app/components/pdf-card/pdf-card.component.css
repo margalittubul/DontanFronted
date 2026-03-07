@@ -1,0 +1,57 @@
+:host {
+  display: block;
+}
+
+.pdf-card {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
+  scroll-snap-align: start;
+}
+
+.pdf-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.pdf-card__thumb {
+  position: relative;
+  height: 124px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, var(--blue-100), var(--blue-50));
+  overflow: hidden;
+}
+
+.pdf-card__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.pdf-card__icon {
+  font-size: 2.2rem;
+}
+
+.pdf-card__label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 6px 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
+  line-height: 1.25;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent);
+}

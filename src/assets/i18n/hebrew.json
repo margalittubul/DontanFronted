@@ -88,6 +88,21 @@
       "ashdod": "אשדוד"
     }
   },
+  "pdfs": {
+    "title": "מאגר מאמרים",
+    "searchPlaceholder": "חפש מאמר...",
+    "noResults": "לא נמצאו תוצאות",
+    "viewAll": "כל המאמרים",
+    "featured": "מאמרים",
+    "close": "סגור",
+    "articles": {
+      "sleeping": "שינה",
+      "naval_strength_workouts_dec25": "מערכי הכוח הימי - דצמבר 25",
+      "pilates_workouts": "מערכי הפילאטיס",
+      "physical_training_concept_naval_corps": "תפיסת האימון הגופני זרוע הים",
+      "running_workouts_booklet": "חוברת מערכי הריצה"
+    }
+  },
   "common": {
     "loading": "טוען...",
     "error": "שגיאה",

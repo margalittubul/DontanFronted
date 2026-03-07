@@ -1,0 +1,16 @@
+@if (safeUrl(); as url) {
+  <div class="pdf-overlay" (click)="pdfViewer.close()" role="button" tabindex="0" (keydown.escape)="pdfViewer.close()">
+    <div class="pdf-overlay__box" (click)="$event.stopPropagation()" role="document">
+      <div class="pdf-overlay__header">
+        <button type="button" class="pdf-overlay__close" (click)="pdfViewer.close()">
+          {{ locale.t('pdfs.close') }}
+        </button>
+      </div>
+      <iframe
+        class="pdf-overlay__iframe"
+        [src]="url"
+        title="PDF"
+      ></iframe>
+    </div>
+  </div>
+}

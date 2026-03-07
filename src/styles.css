@@ -570,6 +570,73 @@ body {
   margin-bottom: 12px;
 }
 
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.section-link {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--blue-600);
+  text-decoration: none;
+}
+
+.section-link:hover {
+  text-decoration: underline;
+}
+
+.section-link--view-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--blue-800);
+}
+
+.section-link--view-all:hover {
+  color: var(--blue-900);
+}
+
+.section-link__arrow {
+  font-size: 0.8rem;
+  line-height: 1;
+  opacity: 0.9;
+}
+
+.pdf-carousel {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  padding: 4px 0 12px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.pdf-carousel::-webkit-scrollbar {
+  height: 4px;
+}
+
+.pdf-carousel::-webkit-scrollbar-thumb {
+  background: var(--blue-200);
+  border-radius: 4px;
+}
+
+.pdf-carousel__item {
+  flex: 0 0 140px;
+  scroll-snap-align: start;
+}
+
+.pdf-carousel-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.pdf-carousel-wrap .pdf-carousel {
+  width: 100%;
+}
+
 /* ========== INPUT ========== */
 
 .input-row {

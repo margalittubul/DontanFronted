@@ -1,0 +1,57 @@
+:host {
+  display: contents;
+}
+
+.pdf-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.pdf-overlay__box {
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  width: 100%;
+  max-width: 900px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-lg);
+}
+
+.pdf-overlay__header {
+  padding: 12px 16px;
+  background: var(--gray-100);
+  border-bottom: 1px solid var(--gray-200);
+  flex-shrink: 0;
+}
+
+.pdf-overlay__close {
+  padding: 8px 16px;
+  border: none;
+  border-radius: var(--radius-full);
+  background: var(--blue-500);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.pdf-overlay__close:hover {
+  background: var(--blue-600);
+}
+
+.pdf-overlay__iframe {
+  flex: 1;
+  min-height: 70vh;
+  width: 100%;
+  border: none;
+}

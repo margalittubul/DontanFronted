@@ -168,6 +168,32 @@
         </div>
     </div>
 
+    <!-- ====== PDF KNOWLEDGE HUB (FEATURED) ====== -->
+    <div class="section">
+        <div class="section-header">
+            <span class="section-title">{{ locale.t('pdfs.featured') }}</span>
+            <a [routerLink]="['/pdfs']" class="section-link section-link--view-all">
+              {{ locale.t('pdfs.viewAll') }}
+              <span class="section-link__arrow" aria-hidden="true">←</span>
+            </a>
+        </div>
+        <div class="pdf-carousel-wrap">
+            <div class="pdf-carousel" role="list">
+                @for (pdf of pdfCarouselItems; track pdf.filename) {
+                <div class="pdf-carousel__item" role="listitem">
+                    <app-pdf-card
+                        [title]="locale.t('pdfs.articles.' + pdf.titleKey)"
+                        [filename]="pdf.filename"
+                        [thumbnailUrl]="pdf.thumbnailUrl ?? null"
+                        [maxTitleLength]="pdfCarouselTitleMaxLength"
+                        [useOverlay]="true"
+                    />
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+
     <!-- ====== RESOURCES ====== -->
     <div class="section">
         <div class="section-title">{{ locale.t('resources.title') }}</div>

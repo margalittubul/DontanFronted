@@ -1,0 +1,39 @@
+@if (useOverlay()) {
+  <div
+    class="pdf-card"
+    role="button"
+    tabindex="0"
+    [attr.aria-label]="displayTitle()"
+    (click)="openPdf($event)"
+    (keydown.enter)="openPdf($event)"
+    (keydown.space)="openPdf($event); $event.preventDefault()"
+  >
+    <div class="pdf-card__thumb">
+      @if (thumbnailUrl() && !thumbnailError()) {
+        <img [src]="thumbnailUrl()" alt="" (error)="thumbnailError.set(true)" />
+      }
+      @if (!thumbnailUrl() || thumbnailError()) {
+        <span class="pdf-card__icon" aria-hidden="true">📄</span>
+      }
+      <span class="pdf-card__label">{{ displayTitle() }}</span>
+    </div>
+  </div>
+} @else {
+  <a
+    [href]="pdfUrl"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="pdf-card"
+    [attr.aria-label]="displayTitle()"
+  >
+    <div class="pdf-card__thumb">
+      @if (thumbnailUrl() && !thumbnailError()) {
+        <img [src]="thumbnailUrl()" alt="" (error)="thumbnailError.set(true)" />
+      }
+      @if (!thumbnailUrl() || thumbnailError()) {
+        <span class="pdf-card__icon" aria-hidden="true">📄</span>
+      }
+      <span class="pdf-card__label">{{ displayTitle() }}</span>
+    </div>
+  </a>
+}

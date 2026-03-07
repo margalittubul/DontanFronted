@@ -1,0 +1,34 @@
+<div class="container pdf-library">
+  <header class="pdf-library__header">
+    <a [routerLink]="['/']" class="pdf-library__back">
+      <span class="pdf-library__back-icon" aria-hidden="true">→</span>
+      {{ locale.t('nav.home') }}
+    </a>
+    <h1 class="pdf-library__title">{{ locale.t('pdfs.title') }}</h1>
+  </header>
+
+  <div class="pdf-library__search">
+    <input
+      type="search"
+      [ngModel]="searchQuery()"
+      (ngModelChange)="searchQuery.set($event)"
+      [placeholder]="locale.t('pdfs.searchPlaceholder')"
+      class="pdf-library__input"
+      autocomplete="off"
+    />
+  </div>
+
+  <div class="pdf-library__list">
+    @for (pdf of filteredPdfs(); track pdf.filename) {
+      <app-pdf-card
+        [title]="locale.t('pdfs.articles.' + pdf.titleKey)"
+        [filename]="pdf.filename"
+        [thumbnailUrl]="pdf.thumbnailUrl ?? null"
+        [useOverlay]="true"
+      />
+    }
+    @empty {
+      <p class="pdf-library__empty">{{ locale.t('pdfs.noResults') }}</p>
+    }
+  </div>
+</div>

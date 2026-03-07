@@ -1,0 +1,83 @@
+:host {
+  display: block;
+  padding-bottom: 24px;
+}
+
+.pdf-library__header {
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+
+.pdf-library__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  margin-bottom: 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--blue-700);
+  text-decoration: none;
+  background: var(--blue-50);
+  border: 1px solid var(--blue-100);
+  border-radius: var(--radius-full);
+  transition: background 0.2s var(--ease), color 0.2s var(--ease), box-shadow 0.2s var(--ease);
+}
+
+.pdf-library__back:hover {
+  background: var(--blue-100);
+  color: var(--blue-800);
+  box-shadow: var(--shadow-sm);
+}
+
+.pdf-library__back-icon {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.pdf-library__title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--gray-800);
+  margin: 0;
+}
+
+.pdf-library__search {
+  margin-bottom: 20px;
+}
+
+.pdf-library__input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-full);
+  font-size: 0.9rem;
+  font-family: inherit;
+  background: var(--bg-card);
+  color: var(--gray-800);
+}
+
+.pdf-library__input::placeholder {
+  color: var(--gray-400);
+}
+
+.pdf-library__input:focus {
+  outline: none;
+  border-color: var(--blue-500);
+  box-shadow: 0 0 0 3px rgba(51, 136, 218, 0.15);
+}
+
+/* Infinite-scroll style: vertical scroll, grid of cards */
+.pdf-library__list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  padding-bottom: 24px;
+}
+
+.pdf-library__empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--gray-400);
+  padding: 24px;
+}
