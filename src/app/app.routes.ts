@@ -5,7 +5,8 @@ import { PdfLibraryComponent } from './pages/pdf-library/pdf-library.component'
 import { MsalGuard } from '@azure/msal-angular'
 
 export const routes: Routes = [
-  { path: '', component: DashboardComponent, canActivate: [MsalGuard] },
+  //, canActivate: [MsalGuard]
+  { path: '', component: DashboardComponent , canActivate: [MsalGuard]},
   { path: 'book', component: BookWorkoutComponent },
   { path: 'pdfs', component: PdfLibraryComponent },
   { path: '**', redirectTo: '' },

@@ -1,5 +1,5 @@
 import { Inject, Injectable, Injector } from '@angular/core'
-import { MSAL_GUARD_CONFIG, MsalBroadcastService, MsalGuardConfiguration, MsalService } from '@azure/msal-angular'
+import { MsalBroadcastService, MsalService } from '@azure/msal-angular'
 import {
   AccountInfo,
   AuthenticationResult,
@@ -17,7 +17,6 @@ import { Router } from '@angular/router'
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly allowedRoles = ['admin', 'user', 'manager']
   private notificationService: NotificationService | undefined
 
   constructor(
@@ -45,21 +44,11 @@ export class AuthService {
     return this.msalService.handleRedirectObservable().pipe(
       map(() => {
         const account = this.msalService.instance.getActiveAccount()
-        const userRoles = account?.idTokenClaims?.roles
-
-        if (!userRoles) {
-          return false
-        }
-
-        const matchingRoles = userRoles.some((role: string) => this.allowedRoles.includes(role))
-
-        if (matchingRoles) {
+        if (account) {
           this.userService.account = account
-
           return true
-        } else {
-          return false
         }
+        return false
       })
     )
   }
@@ -76,16 +65,10 @@ export class AuthService {
 
   async login() {
     await this.msalService.instance.handleRedirectPromise()
-
-    // Navigating and relying on MsalGuard because loginRedirect loops back to /login despite redirectUri to /home in msal.config.ts
-    this.router.navigateByUrl('home', { replaceUrl: true })
+    this.router.navigateByUrl('', { replaceUrl: true })
   }
 
-  refreshToken(): Observable<
-    AuthenticationResult & {
-      account: AccountInfo
-    }
-  > {
+  refreshToken(): Observable<AuthenticationResult & { account: AccountInfo }> {
     return this.msalService.handleRedirectObservable().pipe(
       switchMap(() =>
         this.msalService.acquireTokenSilent({ scopes: ['user.read'], forceRefresh: true }).pipe(
@@ -101,10 +84,10 @@ export class AuthService {
                   verticalPosition: 'bottom'
                 }
               })
-
-              timer(1000).subscribe(() => this.msalService.acquireTokenRedirect({ scopes: ['user.read'] }))
+              timer(1000).subscribe(() =>
+                this.msalService.acquireTokenRedirect({ scopes: ['user.read'] })
+              )
             }
-
             return throwError(() => err)
           })
         )
