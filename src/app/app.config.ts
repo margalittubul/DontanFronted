@@ -37,48 +37,39 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
 
-    // 🔥 חשוב כדי שה־Interceptor יעבוד
     provideHttpClient(withInterceptorsFromDi()),
 
-    // 🔐 MSAL INSTANCE
     {
       provide: MSAL_INSTANCE,
       useFactory: MSALInstanceFactory,
     },
 
-    // 🔐 GUARD CONFIG
     {
       provide: MSAL_GUARD_CONFIG,
       useFactory: MSALGuardConfigFactory,
     },
 
-    // 🔐 INTERCEPTOR CONFIG
     {
       provide: MSAL_INTERCEPTOR_CONFIG,
       useFactory: MSALInterceptorConfigFactory,
     },
 
-    // 🔐 SERVICES
     MsalService,
     MsalBroadcastService,
     MsalGuard,
 
-    // 🔐 HTTP INTERCEPTOR (JWT)
     {
       provide: HTTP_INTERCEPTORS,
       useClass: MsalInterceptor,
       multi: true,
     },
 
-    // 🔐 INIT MSAL
     {
       provide: APP_INITIALIZER,
       useFactory: MSALInitializerFactory,
       deps: [MsalService],
       multi: true,
     },
-
-    // 🌍 לוקל
     {
       provide: LOCALE_ID,
       useValue: 'he-IL',

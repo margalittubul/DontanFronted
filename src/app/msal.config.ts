@@ -14,7 +14,6 @@ import {
 import { environment } from '../environments/environment'
 import { firstValueFrom } from 'rxjs'
 
-// 🔐 יצירת מופע MSAL
 export function MSALInstanceFactory(): IPublicClientApplication {
   return new PublicClientApplication({
     auth: {
@@ -32,23 +31,17 @@ export function MSALInstanceFactory(): IPublicClientApplication {
   })
 }
 
-// 🔐 Interceptor (JWT)
 export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
   const protectedResourceMap = new Map<string, Array<string> | null>()
 
-  // Graph (אם צריך)
   protectedResourceMap.set('https://graph.microsoft.com/v1.0/me', ['user.read'])
 
-  // 🔥 ה-API שלך (הכי חשוב!)
-  protectedResourceMap.set(`${environment.apiUrl}/*`, [environment.apiScope])
-
   return {
-    interactionType: InteractionType.Popup, // כמו בדוגמה
+    interactionType: InteractionType.Popup, 
     protectedResourceMap,
   }
 }
 
-// 🔐 Guard
 export function MSALGuardConfigFactory(): MsalGuardConfiguration {
   return {
     interactionType: InteractionType.Redirect,
@@ -56,7 +49,6 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
   }
 }
 
-// 🔐 Initializer
 export function MSALInitializerFactory(msal: MsalService) {
   return async () => {
     try {
