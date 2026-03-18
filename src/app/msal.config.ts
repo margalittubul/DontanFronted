@@ -17,8 +17,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     auth: {
       clientId: environment.msal.clientId,
       authority: `https://login.microsoftonline.com/${environment.msal.tenantId}`,
-      redirectUri: `${environment.clientRoot}/home`,
-      postLogoutRedirectUri: `${environment.clientRoot}/login`,
+      redirectUri: `${environment.clientRoot}`,
+      postLogoutRedirectUri: `${environment.clientRoot}`,
     },
     cache: {
       cacheLocation: BrowserCacheLocation.LocalStorage,
