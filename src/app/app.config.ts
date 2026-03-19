@@ -1,78 +1,53 @@
-import {
-  ApplicationConfig,
-  provideZoneChangeDetection,
-  APP_INITIALIZER,
-  LOCALE_ID
-} from '@angular/core'
-
-import { provideRouter } from '@angular/router'
+import { NgModule, APP_INITIALIZER } from '@angular/core'
+import { HTTP_INTERCEPTORS } from '@angular/common/http'
 
 import {
-  provideHttpClient,
-  HTTP_INTERCEPTORS,
-  withInterceptorsFromDi
-} from '@angular/common/http'
-
-import { routes } from './app.routes'
-
-import {
+  MsalModule,
+  MsalService,
   MsalInterceptor,
-  MsalGuard,
   MSAL_INSTANCE,
   MSAL_GUARD_CONFIG,
-  MSAL_INTERCEPTOR_CONFIG,
-  MsalService,
-  MsalBroadcastService,
+  MSAL_INTERCEPTOR_CONFIG
 } from '@azure/msal-angular'
 
 import {
   MSALInstanceFactory,
   MSALGuardConfigFactory,
-  MSALInterceptorConfigFactory,
-  MSALInitializerFactory
+  MSALInterceptorConfigFactory
 } from './msal.config'
 
-export const appConfig: ApplicationConfig = {
+export function MSALInitializerFactory(msalService: MsalService) {
+  return () => msalService.initialize()
+}
+
+@NgModule({
+  imports: [MsalModule],
   providers: [
-    provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes),
-
-    provideHttpClient(withInterceptorsFromDi()),
-
     {
       provide: MSAL_INSTANCE,
-      useFactory: MSALInstanceFactory,
+      useFactory: MSALInstanceFactory
     },
-
     {
       provide: MSAL_GUARD_CONFIG,
-      useFactory: MSALGuardConfigFactory,
+      useFactory: MSALGuardConfigFactory
     },
-
     {
       provide: MSAL_INTERCEPTOR_CONFIG,
-      useFactory: MSALInterceptorConfigFactory,
+      useFactory: MSALInterceptorConfigFactory
     },
-
-    MsalService,
-    MsalBroadcastService,
-    MsalGuard,
-
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: MsalInterceptor,
-      multi: true,
-    },
-
     {
       provide: APP_INITIALIZER,
       useFactory: MSALInitializerFactory,
       deps: [MsalService],
-      multi: true,
+      multi: true
     },
+    MsalService,
     {
-      provide: LOCALE_ID,
-      useValue: 'he-IL',
+      provide: HTTP_INTERCEPTORS,
+      useClass: MsalInterceptor,
+      multi: true
     }
   ],
-}
+  exports: [MsalModule]
+})
+export class MsalCustomModule {}
