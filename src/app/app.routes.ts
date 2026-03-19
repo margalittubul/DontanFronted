@@ -1,9 +1,10 @@
-import { Routes } from '@angular/router'
-import { DashboardComponent } from './pages/dashboard/dashboard.component'
-import { BookWorkoutComponent } from './pages/book-workout/book-workout.component'
+import { Routes } from '@angular/router';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { BookWorkoutComponent } from './pages/book-workout/book-workout.component';
+import { MsalGuard } from '@azure/msal-angular';
 
 export const routes: Routes = [
-    { path: '', component: DashboardComponent },
-    { path: 'book', component: BookWorkoutComponent },
-    { path: '**', redirectTo: '' },
-]
+  { path: '', component: DashboardComponent, canActivate: [MsalGuard] },
+  { path: 'book', component: BookWorkoutComponent, canActivate: [MsalGuard] },
+  { path: '**', redirectTo: '' },
+];
